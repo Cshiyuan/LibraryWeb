@@ -18,11 +18,15 @@
 	 .header1 {
 			background:#494;
         }
+     .header1.am-topbar-brand
+     {
+     }
 	span {
-	color:#494;}
+	color:#494;  }
 	.am-icon-arrows-alt
 	{
-	color:#EEF;}
+	color:#EEF;
+    }
 	.admin-fullText
 	{
 	color:#EEF;}
@@ -42,16 +46,6 @@
     <div class="am-topbar-brand">
         <strong>图书馆图书定位系统</strong>
         <small>后台管理</small>
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		<em>你好，<?php echo $_SESSION['admin_name'];?></em>
     </div>
 
@@ -140,7 +134,7 @@
                     <div class="am-u-lg-6 am-u-md-8 am-u-sm-centered">
                         <fieldset>
                             <p class="login-box-msg">添加图书</p>
-                            <form action="__SELF__" method="post">
+                            <form action="__SELF__" method="post" enctype="multipart/form-data">
 
                                 <div class="am-form-group">
                                     <input type="text" name="book_name"
@@ -172,6 +166,9 @@
                                 <div class="am-form-group">
                                     <input type="text" name="is_onslf"
                                            class="am-form-field am-round" placeholder="是否在架 (在填1，不在填0)" required/>
+                                </div>
+                                <div class="am-form-group">
+                                   封面： <input type="file" name="photo" />
                                 </div>
                                 <div class="am-form-group">
                                     <button type="submit" style="background:#494" class="am-btn am-btn-primary">添加图书</button>

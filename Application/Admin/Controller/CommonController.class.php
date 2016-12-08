@@ -19,7 +19,6 @@ class CommonController extends Controller
     /* 定义用户workID */
     public static $workID = '';
 
-
     /**
      * 自动执行
      */

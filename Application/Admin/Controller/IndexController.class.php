@@ -27,11 +27,11 @@ class IndexController extends CommonController
         $p = new Page($count, 10);
 
         if (session('search_info') == 'null')
-            $list = $Form->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
+            $list = $Form->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf,cover_thumb')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
         else {
             $where = array();
             $where['book_name'] = array('like', '%' . session('search_info') . '%');  //模糊查询
-            $list = $Form->where($where)->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
+            $list = $Form->where($where)->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf,cover_thumb')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
         }
         //$p->firstRow 当前页开始记录的下标，$p->listRows 每页显示记录数
         //一般定义分页样式 通过分页对象的setConfig定义其config属性；
@@ -65,11 +65,11 @@ class IndexController extends CommonController
         $p = new Page($count, 10);
 
         if (session('search_info') == 'null')
-            $list = $Form->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
+            $list = $Form->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf,cover_thumb')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
         else {
             $where = array();
             $where['category'] = array('like', '%' . session('search_info') . '%');  //模糊查询
-            $list = $Form->where($where)->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
+            $list = $Form->where($where)->field('book_ID,category, book_name,slf_name,author,pub_house,search_time,is_onslf,cover_thumb')->limit($p->firstRow . ',' . $p->listRows)->order('book_ID desc')->select();
         }
         //$p->firstRow 当前页开始记录的下标，$p->listRows 每页显示记录数
         //一般定义分页样式 通过分页对象的setConfig定义其config属性；
@@ -106,7 +106,6 @@ class IndexController extends CommonController
             $this->error('删除出错！');
         }
     }
-
 
     /**
      * 搜索图书
@@ -197,6 +196,8 @@ class IndexController extends CommonController
     {
         // 判断提交方式 做不同处理
         if (IS_POST) {
+
+
             // 实例化User对象
             $book = D('book');
 
@@ -207,6 +208,36 @@ class IndexController extends CommonController
 //                exit($user->getError());
                 $this->error($book->getError(), U('index/add'));
             }
+
+            $upload = new \Think\Upload();// 实例化上传类
+            $upload->maxSize = 3145728;// 设置附件上传大小
+            $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
+            $upload->rootPath = './Uploads/'; // 设置附件上传根目录
+            // 上传单个文件
+            $images = $upload->uploadOne($_FILES['photo']);
+
+            if ($images) {
+                $img_url = $images['savepath'] . $images['savename'];
+//                $date['cover']
+                $info['image'] = $img_url;
+                $image = new \Think\Image();//实例化图片处理类
+                $url = './Uploads/' . $img_url;
+                $img_name = str_replace(".jpg", "_", $img_url);//替换图片名字
+                $image->open($url);//打开图片
+                $name = './Uploads/' . $img_name . 'thumb.jpg';
+                if ($image->thumb(600, 600)->save($name))//生成50X50的缩略图,并保存
+                {
+                    $info['thumb'] = $img_name . 'thumb.jpg';
+                    $data['cover_thumb'] = $info['thumb'];   //传入数据库
+//                    var_dump($info['image']);
+                    $data['cover'] = $info['image'];
+//                    var_dump($dat)
+                }
+            } else {
+                $this->error($upload->getError());//获取失败信息
+            }
+
+
 
             //插入数据库
             if ($id = $book->add($data)) {
@@ -383,7 +414,6 @@ class IndexController extends CommonController
             $this->success('修改成功', U('Index/information'), 1);
         }
     }
-	
-	
+
 	
 }
