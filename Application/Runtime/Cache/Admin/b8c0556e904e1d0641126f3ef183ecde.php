@@ -18,11 +18,15 @@
 	 .header1 {
 			background:#494;
         }
+     .header1.am-topbar-brand
+     {
+     }
 	span {
-	color:#494;}
+	color:#494;  }
 	.am-icon-arrows-alt
 	{
-	color:#EEF;}
+	color:#EEF;
+    }
 	.admin-fullText
 	{
 	color:#EEF;}
@@ -42,7 +46,6 @@
     <div class="am-topbar-brand">
         <strong>图书馆图书定位系统</strong>
         <small>后台管理</small>
-
 		<em>你好，<?php echo $_SESSION['admin_name'];?></em>
     </div>
 

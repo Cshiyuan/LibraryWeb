@@ -212,7 +212,8 @@ class IndexController extends CommonController
             $upload = new \Think\Upload();// 实例化上传类
             $upload->maxSize = 3145728;// 设置附件上传大小
             $upload->exts = array('jpg', 'gif', 'png', 'jpeg');// 设置附件上传类型
-            $upload->rootPath = './Uploads/'; // 设置附件上传根目录
+            $upload->rootPath = __ROOT__.'/Uploads/'; // 设置附件上传根目录
+            var_dump(__ROOT__);
             // 上传单个文件
             $images = $upload->uploadOne($_FILES['photo']);
 
