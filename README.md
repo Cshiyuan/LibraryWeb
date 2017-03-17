@@ -38,18 +38,7 @@
 点击退出，可以退出登陆。
 
 
-
-
-
 源码文件结构
-
-
-
-
-
-
-
-
 
 
  
@@ -77,3 +66,6 @@ Controller : 控制器，主要有CommonController公用控制器,indexControlle
 Model : 模型，主要是与数据库连接的模型，目前有LoginModel登陆者模型，BookModel图书模型，Administrator管理员模型。
 
 View : 与模型相关的相关视图
+
+<img src="https://github.com/Cshiyuan/LibraryWeb/blob/master/image/D310DAA6-7A12-4EFB-91A3-93D2BFDEDF72.png" width = "80%" />
+
